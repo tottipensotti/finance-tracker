@@ -2,15 +2,15 @@ from datetime import datetime, timedelta
 
 class Expense:
     def __init__(self,
-                 name: str,
-                 amount: float,
-                 is_credit: bool,
-                 installments: int,
-                 timestamp: datetime,
-                 category: str,
-                 status: str,
-                 paid_with: str
-                 ):
+                name: str,
+                amount: float,
+                is_credit: bool,
+                installments: int,
+                timestamp: datetime,
+                category: str,
+                status: str,
+                paid_with: str
+                ):
         self.timestamp = timestamp
         self.name = name
         self.paid_with = paid_with
@@ -40,12 +40,12 @@ class Expense:
 
 class Income:
     def __init__(self,
-                 name: str,
-                 amount: float,
-                 timestamp: datetime,
-                 type: str,
-                 account: str
-                 ):
+                name: str,
+                amount: float,
+                timestamp: datetime,
+                type: str,
+                account: str
+                ):
         self.timestamp = timestamp
         self.name = name
         self.account = account
@@ -54,10 +54,10 @@ class Income:
 
 class Savings:
     def __init__(self,
-                 name: str,
-                 amount: float,
-                 timestamp: datetime,
-                 category: str):
+                name: str,
+                amount: float,
+                timestamp: datetime,
+                category: str):
         self.name = name
         self.amount = amount
         self.timestamp = timestamp
