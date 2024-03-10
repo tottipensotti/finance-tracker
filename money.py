@@ -37,7 +37,6 @@ class Expense:
                 installment_dates.append(due_date)
         return installment_dates
             
-
 class Income:
     def __init__(self,
                 name: str,
@@ -51,7 +50,6 @@ class Income:
         self.account = account
         self.type = type
         self.amount = amount
-
 class Savings:
     def __init__(self,
                 name: str,

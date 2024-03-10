@@ -1,6 +1,7 @@
 from money import Expense
 from datetime import datetime
 
+# Example of an Expense
 expense = Expense(
     name="Test",
     amount = 120000.0,
