@@ -6,18 +6,20 @@ class Expense:
                 amount: float,
                 is_credit: bool,
                 installments: int,
-                timestamp: datetime,
+                date: datetime,
                 category: str,
-                status: str,
-                paid_with: str
+                currency: str,
+                paid_with: str,
+                status: str
                 ):
-        self.timestamp = timestamp
         self.name = name
-        self.paid_with = paid_with
-        self.category = category
+        self.amount = amount
         self.is_credit = is_credit
         self.installments = installments
-        self.amount = amount
+        self.date = date
+        self.category = category
+        self.currency = currency
+        self.paid_with = paid_with
         self.status = status
 
         if self.is_credit:
@@ -30,9 +32,9 @@ class Expense:
     def calculate_installments_dates(self):
         installment_dates = []
         if self.is_credit:
-            for i in range(1, self.installments + 1):
-                due_month = (self.timestamp.month + 1) % 12
-                due_year = self.timestamp.year + (self.timestamp.month + 1) // 12
+            for _ in range(1, self.installments + 1):
+                due_month = (self.date.month + 1) % 12
+                due_year = self.date.year + (self.date.month + 1) // 12
                 due_date = datetime(due_year, due_month, 1)
                 installment_dates.append(due_date)
         return installment_dates
@@ -41,22 +43,27 @@ class Income:
     def __init__(self,
                 name: str,
                 amount: float,
-                timestamp: datetime,
-                type: str,
-                account: str
+                category: str,
+                account: str,
+                currency: str,
+                date: datetime
                 ):
-        self.timestamp = timestamp
         self.name = name
-        self.account = account
-        self.type = type
         self.amount = amount
-class Savings:
+        self.category = category
+        self.account = account
+        self.currency = currency
+        self.date = date
+class Saving:
     def __init__(self,
                 name: str,
                 amount: float,
-                timestamp: datetime,
-                category: str):
+                category: str,
+                currency: str,
+                date: datetime
+                ):
         self.name = name
         self.amount = amount
-        self.timestamp = timestamp
         self.category = category
+        self.currency = currency
+        self.date = date
