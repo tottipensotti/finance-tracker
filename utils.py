@@ -13,7 +13,7 @@ def add_income(name, amount, category, account, currency, date):
     return income
 
 
-def add_expense(name, amount, is_credit, installments, date, category, currency, paid_with, status):
+def add_expense(name, amount, is_credit, installments, date, category, currency, account, status):
     expense = Expense(
         name=name,
         amount=amount,
@@ -22,7 +22,7 @@ def add_expense(name, amount, is_credit, installments, date, category, currency,
         date=date,
         category=category,
         currency=currency,
-        paid_with=paid_with,
+        account=account,
         status=status
     )
     return expense

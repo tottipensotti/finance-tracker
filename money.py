@@ -9,7 +9,7 @@ class Expense:
                 date: datetime,
                 category: str,
                 currency: str,
-                paid_with: str,
+                account: str,
                 status: str
                 ):
         self.name = name
@@ -19,7 +19,7 @@ class Expense:
         self.date = date
         self.category = category
         self.currency = currency
-        self.paid_with = paid_with
+        self.account = account
         self.status = status
 
         if self.is_credit:

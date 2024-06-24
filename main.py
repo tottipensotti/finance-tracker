@@ -40,7 +40,7 @@ def add_register(options):
             name = input("Name: ").capitalize()
             amount = float(input("Amount: "))
             category = input("Category: ").capitalize()
-            paid_with = input("Paid with: ").upper()
+            account = input("Paid with: ").upper()
             currency = input("Currency: ").upper()
             
             if input("Was it made today? [Y/N] ").upper() =='N':
@@ -59,7 +59,7 @@ def add_register(options):
             else:
                 status='Paid'
             
-            args = [name, amount, is_credit, installments, date, category, currency, paid_with, status]
+            args = [name, amount, is_credit, installments, date, category, currency, account, status]
 
             try:
                 expense = add_expense(*args)
