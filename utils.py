@@ -1,45 +1,20 @@
-from money import Expense, Income, Saving, Account
+import sqlite3
+from fastapi import HTTPException
 
-def add_income(name, amount, category, account, currency, date):
-    income = Income(
-        name=name,
-        amount=amount,
-        category=category,
-        account=account,
-        currency=currency,
-        date=date
-    )
-    return income
+def get_db(DATABASE):
+    conn = sqlite3.connect(DATABASE)
+    return conn
 
-
-def add_expense(name, amount, is_credit, installments, date, category, currency, account, status):
-    expense = Expense(
-        name=name,
-        amount=amount,
-        is_credit=is_credit,
-        installments=installments,
-        date=date,
-        category=category,
-        currency=currency,
-        account=account,
-        status=status
-    )
-    return expense
-
-def add_saving(name, amount, category, currency, date):
-    saving = Saving(
-        name=name,
-        amount=amount,
-        category=category,
-        currency=currency,
-        date=date
-    )
-    return saving
-
-def add_account(name, description, type):
-    account = Account(
-        name=name,
-        description=description,
-        type=type
-    )
-    return account
+def create_record(db: str, table: str, fields: tuple, values: tuple):
+    conn = get_db(db)
+    cursor = conn.cursor()
+    placeholders = ', '.join(['?'] * len(values))
+    query = f"INSERT INTO {table} ({', '.join(fields)}) VALUES ({placeholders})"
+    try:
+        cursor.execute(query, values)
+        conn.commit()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        conn.close()
+    return {"message": f"Record successfully added to {table}."}

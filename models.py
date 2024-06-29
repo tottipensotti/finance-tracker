@@ -11,7 +11,7 @@ class Money(BaseModel):
     name: str
     date: datetime
     amount: float
-    account: str
+    account: int
     category: str
     currency: str
 
@@ -33,5 +33,5 @@ class Expense(Money):
 class Income(Money):
     pass
     
-class Saving:
+class Saving(Money):
     pass

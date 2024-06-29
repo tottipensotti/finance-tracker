@@ -19,6 +19,8 @@ def create_tables():
             amount NUMERIC NOT NULL,
             is_credit INTEGER NOT NULL,
             installments INTEGER NOT NULL,
+            installments_amount NUMERIC,
+            installments_dates TEXT,
             date TEXT NOT NULL,
             category TEXT NOT NULL,
             currency TEXT NOT NULL,
@@ -73,9 +75,9 @@ def create_tables():
 
 def add_expense(conn, expense):
     sql="""
-        INSERT INTO expenses(name, amount, is_credit, installments, date, 
-                            category, currency, account_id, status)
-        VALUES(?,?,?,?,?,?,?,?,?)
+        INSERT INTO expenses(name, amount, is_credit, installments, installments_amount, installments_dates,
+                            date, category, currency, account_id, status)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)
     """
     cur = conn.cursor()
     cur.execute(sql, expense)
@@ -112,13 +114,13 @@ def add_account(conn, account):
     conn.commit()
     return cur.lastrowid
 
-def insert_rows():
+def insert_dummy_rows():
     try:
         with sqlite3.connect('data.db') as conn:
             account = ('Test', 'Test Account', 'Test')
             account_id = add_account(conn, account)
             
-            expense = ('Test', 1500, 0, 0, '2024-06-23 21:47:13.000', 
+            expense = ('Test', 1500, 0, 0, '', '', '2024-06-23 21:47:13.000', 
                             'Test', 'USD', account_id, 'Paid')
             expense_id = add_expense(conn, expense)
             
@@ -149,4 +151,4 @@ def insert_rows():
 if __name__ == '__main__':
     create_database("data.db")
     create_tables()
-    insert_rows()
+    insert_dummy_rows()
