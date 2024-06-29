@@ -1,5 +1,4 @@
-from money import Expense, Income, Saving
-from datetime import datetime
+from money import Expense, Income, Saving, Account
 
 def add_income(name, amount, category, account, currency, date):
     income = Income(
@@ -36,3 +35,11 @@ def add_saving(name, amount, category, currency, date):
         date=date
     )
     return saving
+
+def add_account(name, description, type):
+    account = Account(
+        name=name,
+        description=description,
+        type=type
+    )
+    return account

@@ -1,69 +1,37 @@
 from datetime import datetime, timedelta
+from pydantic import BaseModel
+from typing import Optional, List
 
-class Expense:
-    def __init__(self,
-                name: str,
-                amount: float,
-                is_credit: bool,
-                installments: int,
-                date: datetime,
-                category: str,
-                currency: str,
-                account: str,
-                status: str
-                ):
-        self.name = name
-        self.amount = amount
-        self.is_credit = is_credit
-        self.installments = installments
-        self.date = date
-        self.category = category
-        self.currency = currency
-        self.account = account
-        self.status = status
+class Account(BaseModel):
+    name: str
+    description: str
+    type: str
 
-        if self.is_credit:
-            self.installment_amount = self.amount / self.installments
-        else:
-            self.installment_amount = None
+class Money(BaseModel):
+    name: str
+    date: datetime
+    amount: float
+    account: str
+    category: str
+    currency: str
 
-        self.installment_dates = self.calculate_installments_dates()
-
-    def calculate_installments_dates(self):
-        installment_dates = []
-        if self.is_credit:
-            for _ in range(1, self.installments + 1):
-                due_month = (self.date.month + 1) % 12
-                due_year = self.date.year + (self.date.month + 1) // 12
-                due_date = datetime(due_year, due_month, 1)
-                installment_dates.append(due_date)
-        return installment_dates
+class Expense(Money):
+    is_credit: bool
+    installments: Optional[int] = None
+    status: str
+    
+    def calculate_installments_amount(self) -> Optional[float]:
+        if self.installments and self.installments > 0:
+            return self.amount / self.installments
+        return None
+    
+    def calculate_installments_dates(self) -> Optional[List[datetime]]:
+        if self.installments and self.installments > 0:
+            return [self.date + timedelta(days=30 * i) for i in range(self.installments)]
+        return None
             
-class Income:
-    def __init__(self,
-                name: str,
-                amount: float,
-                category: str,
-                account: str,
-                currency: str,
-                date: datetime
-                ):
-        self.name = name
-        self.amount = amount
-        self.category = category
-        self.account = account
-        self.currency = currency
-        self.date = date
+class Income(Money):
+    pass
+    
 class Saving:
-    def __init__(self,
-                name: str,
-                amount: float,
-                category: str,
-                currency: str,
-                date: datetime
-                ):
-        self.name = name
-        self.amount = amount
-        self.category = category
-        self.currency = currency
-        self.date = date
+    pass
