@@ -18,3 +18,16 @@ def create_record(db: str, table: str, fields: tuple, values: tuple):
     finally:
         conn.close()
     return {"message": f"Record successfully added to {table}."}
+
+def delete_record(db: str, table: str, id: int):
+    conn = get_db(db)
+    cursor = conn.cursor()
+    query = f"DELETE FROM {table} WHERE id={id}"
+    try:
+        cursor.execute(query)
+        conn.commit()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        conn.close()
+    return {"message": f"Record successfully deleted from {table}"}

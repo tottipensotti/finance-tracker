@@ -65,11 +65,11 @@ def create_tables(database):
                 cursor.execute(statement)
             conn.commit()
             cursor.execute("""
-                SELECT name
-                FROM sqlite_schema
-                WHERE type ='table'
-                    AND name NOT LIKE 'sqlite_%';"""
-            )
+                SELECT
+                    name
+                FROM sqlite_master
+                WHERE type='table'
+            """)
             print(cursor.fetchall())
     except sqlite3.Error as e:
         print(e)

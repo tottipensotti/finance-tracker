@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+h1 {
+    margin-bottom: 30px;
+}
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin: 10px;
+}
+
+#addExpense { background-color: #ff4136; }
+#addIncome { background-color: #2ecc40; }
+#addSaving { background-color: #0074d9; }
+#addAccount { background-color: #b10dc9; }
+#backToHome { background-color: #aaaaaa; }
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+label, input, select {
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+#formContainer {
+    display: none;
+}
+#messageContainer {
+    margin-top: 20px;
+    font-weight: bold;
+}
